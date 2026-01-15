@@ -4,8 +4,8 @@ use chrono::{NaiveDate};
 fn main() {
     let date = NaiveDate::from_ymd_opt(2024, 1, 15).unwrap();
     let dt = date.and_hms_opt(10, 0, 0).unwrap();
-    let other_date = NaiveDate::from_ymd_opt(2023, 1, 15).unwrap();
-    let other_dt = other_date.and_hms_opt(10, 0, 0).unwrap();
+    let other_date = NaiveDate::from_ymd_opt(2024, 1, 15).unwrap();
+    let other_dt = other_date.and_hms_opt(15, 0, 0).unwrap();
 
     println!("181 Add months: {:?}", date_time_ops::add_months(date, 2));
     println!("182 Add years: {:?}", date_time_ops::add_years(date, 1));
@@ -22,8 +22,8 @@ fn main() {
     println!("193 End of month: {:?}", date_time_ops::end_of_month(date));
     println!("194 Start of year: {:?}", date_time_ops::start_of_year(date));
     println!("195 End of year: {:?}", date_time_ops::end_of_year(date));
-    println!("196 Start of week: {:?}", date_time_ops::start_of_week(date));
-    println!("197 End of week: {:?}", date_time_ops::end_of_week(date));
+    println!("196 Start of week: {:?}", date_time_ops::start_of_week(date, 1));
+    println!("197 End of week: {:?}", date_time_ops::end_of_week(date, 1));
     println!("198 Is same day: {}", date_time_ops::is_same_day(dt, other_dt));
     println!("199 Is same month: {}", date_time_ops::is_same_month(date, other_date));
     println!("200 Is same year: {}", date_time_ops::is_same_year(date, other_date));

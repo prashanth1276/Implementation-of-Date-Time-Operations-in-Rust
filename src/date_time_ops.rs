@@ -46,18 +46,24 @@ pub fn subtract_days(date: NaiveDate, days: i64) -> NaiveDate {
 
 /// 187. Difference in Hours
 pub fn diff_in_hours(d1: NaiveDateTime, d2: NaiveDateTime) -> i64 {
-    (d1 - d2).num_hours().abs()
+    let duration = d1.signed_duration_since(d2);
+    duration.num_hours().abs()
 }
+
 
 /// 188. Difference in Minutes
 pub fn diff_in_minutes(d1: NaiveDateTime, d2: NaiveDateTime) -> i64 {
-    (d1 - d2).num_minutes().abs()
+    let duration = d1.signed_duration_since(d2);
+    duration.num_minutes().abs()
 }
+
 
 /// 189. Difference in Seconds
 pub fn diff_in_seconds(d1: NaiveDateTime, d2: NaiveDateTime) -> i64 {
-    (d1 - d2).num_seconds().abs()
+    let duration = d1.signed_duration_since(d2);
+    duration.num_seconds().abs()
 }
+
 
 /// 190. Difference in Months/*  */
 pub fn diff_in_months(d1: NaiveDate, d2: NaiveDate) -> i32 {
@@ -97,14 +103,16 @@ pub fn end_of_year(date: NaiveDate) -> NaiveDateTime {
 }
 
 /// 196. Start of Week (Monday = 1)
-pub fn start_of_week(date: NaiveDate) -> NaiveDate {
-    let weekday = date.weekday().num_days_from_monday() as i64;
-    date - Duration::days(weekday)
+pub fn start_of_week(date: NaiveDate, start_day: u32) -> NaiveDate {
+    let current = date.weekday().number_from_monday(); // 1–7
+    let diff = (7 + current - start_day) % 7;
+    date - Duration::days(diff as i64)
 }
 
+
 /// 197. End of Week
-pub fn end_of_week(date: NaiveDate) -> NaiveDateTime {
-    start_of_week(date)
+pub fn end_of_week(date: NaiveDate, start_day: u32) -> NaiveDateTime {
+    start_of_week(date, start_day)
         .and_hms_opt(0, 0, 0)
         .unwrap()
         + Duration::days(6)
@@ -112,6 +120,7 @@ pub fn end_of_week(date: NaiveDate) -> NaiveDateTime {
         + Duration::minutes(59)
         + Duration::seconds(59)
 }
+
 
 /// 198. Is Same Day
 pub fn is_same_day(d1: NaiveDateTime, d2: NaiveDateTime) -> bool {
